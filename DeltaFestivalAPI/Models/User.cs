@@ -12,5 +12,7 @@ namespace DeltaFestivalAPI.Models
         public int MoodId { get; set; }
         public Mood ActualMood { get; set; }
         public List<Publication> Publications { get; set; }
+        public List<Crush> Crushes { get; set; }
+        public List<Ignored> IgnoredPeople { get; set; }
     }
 }

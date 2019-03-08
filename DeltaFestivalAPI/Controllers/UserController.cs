@@ -13,13 +13,16 @@ namespace DeltaFestivalAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-
+        private List<User> listOfPotentialCrushes;
+        private List<int> ignoredOrCrushedPeople;
         private readonly DeltaDbContext _context;
         private readonly IUserRepository _userRepository;
 
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+            listOfPotentialCrushes = new List<User>();
+            ignoredOrCrushedPeople = new List<int>();
         }
 
         // GET all user
@@ -76,6 +79,7 @@ namespace DeltaFestivalAPI.Controllers
             }
 
             return true;
+
         }
 
         // DELETE user by id
@@ -94,6 +98,27 @@ namespace DeltaFestivalAPI.Controllers
             }
 
             return true;
+
         }
+
+
+        public User AfficherCrush()
+        {
+            //listOfPotentialCrushes = GetAll().Remove(currentUser); //todo
+
+            //récupérér les crush et ignored d'une personne et mettre les int dans une table 
+            //todo enlever les personnes présentes dans les tables ignored et crush de la liste à swiper
+
+            foreach(int id in ignoredOrCrushedPeople)
+            {
+                //listOfPotentialCrushes.Remove()
+            }
+
+            Random rnd = new Random();
+            int r = rnd.Next(listOfPotentialCrushes.Count);
+
+            return listOfPotentialCrushes[r];
+        }
+
     }
 }
