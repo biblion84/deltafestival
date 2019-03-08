@@ -54,11 +54,31 @@ namespace DeltaFestivalAPI.Controllers
             return true;
         }
 
-        // Edit 
+        // Edit publication
         [HttpPut("{id}")]
-        public void Put(Publication publication)
+        public bool Put(Publication publication)
         {
-           
+            try
+            {
+                Publication olderPublication = _publicationRepository.FindBy(c => c.Id == publication.Id).FirstOrDefault();
+
+                #region Edit properties
+                olderPublication.UserId = publication.UserId;
+                olderPublication.Message = publication.Message;
+                olderPublication.Like = publication.Like;
+                olderPublication.Hashtag = publication.Hashtag;
+                olderPublication.File = publication.File;
+                olderPublication.Date = publication.Date;
+                #endregion
+
+                _publicationRepository.Save();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return true;
         }
 
         // DELETE publication by id

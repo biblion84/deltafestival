@@ -55,16 +55,24 @@ namespace DeltaFestivalAPI.Controllers
 
         // Update Mood
         [HttpPut("{id}")]
-        public void Put(Mood mood)
+        public bool Put(Mood mood)
         {
             try
             {
+                Mood olderMood = _moodRepository.FindBy(c => c.Id == mood.Id).FirstOrDefault();
 
+                #region Edit properties
+                olderMood.Label = mood.Label;
+                #endregion
+
+                _moodRepository.Save();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-
+                throw new Exception(e.Message);
             }
+
+            return true;
         }
 
         // DELETE Mood

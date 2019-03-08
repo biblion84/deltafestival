@@ -36,22 +36,64 @@ namespace DeltaFestivalAPI.Controllers
             return _userRepository.FindBy(c => c.Id == id).FirstOrDefault();
         }
 
-        // POST api/values
+        // Add user
         [HttpPost]
-        public void Post([FromBody] string value)
+        public bool Post(User user)
         {
+            try
+            {
+                _userRepository.Add(user);
+                _userRepository.Save();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return true;
         }
 
-        // PUT api/values/5
+        // Edit User
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public bool Put(User user)
         {
+            try
+            {
+                User olderUser = _userRepository.FindBy(c => c.Id == user.Id).FirstOrDefault();
+
+                #region Edit properties
+                olderUser.MoodId = user.MoodId;
+                olderUser.Publications = user.Publications;
+                olderUser.Role = user.Role;
+                olderUser.TicketCode = user.TicketCode;
+                #endregion
+                
+                _userRepository.Save();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return true;
         }
 
-        // DELETE api/values/5
+        // DELETE user by id
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            try
+            {
+                User user = _userRepository.FindBy(c => c.Id == id).FirstOrDefault();
+                _userRepository.Delete(user);
+                _userRepository.Save();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return true;
         }
     }
 }
