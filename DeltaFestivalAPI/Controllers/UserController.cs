@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DeltaFestivalAPI.Database;
 using DeltaFestivalAPI.IRepository;
+using DeltaFestivalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeltaFestivalAPI.Controllers
@@ -21,18 +22,18 @@ namespace DeltaFestivalAPI.Controllers
             _userRepository = userRepository;
         }
 
-        // GET api/values
+        // GET all user
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public List<User> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            return _userRepository.GetAll().ToList();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public User Get(int id)
         {
-            return "value";
+            return _userRepository.FindBy(c => c.Id == id).FirstOrDefault();
         }
 
         // POST api/values

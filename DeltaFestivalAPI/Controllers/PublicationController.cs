@@ -25,7 +25,7 @@ namespace DeltaFestivalAPI.Controllers
 
         // GET all list of publication
         [HttpGet]
-        public List<Publication> Get()
+        public List<Publication> GetAll()
         {
            return _publicationRepository.GetAll().ToList();
         }

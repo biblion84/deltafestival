@@ -23,7 +23,7 @@ namespace DeltaFestivalAPI.Controllers
                 
         // GET api/values
         [HttpGet]
-        public ActionResult<List<Mood>> Get()
+        public ActionResult<List<Mood>> GetAll()
         {
             return _moodRepository.GetAll().ToList();
         }
