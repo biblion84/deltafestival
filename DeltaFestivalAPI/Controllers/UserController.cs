@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DeltaFestivalAPI.Database;
 using DeltaFestivalAPI.IRepository;
 using DeltaFestivalAPI.Models;
+using DeltaFestivalAPI.Transverse;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeltaFestivalAPI.Controllers
@@ -16,6 +17,8 @@ namespace DeltaFestivalAPI.Controllers
         private List<User> listOfPotentialCrushes;
         private List<int> ignoredOrCrushedPeople;
         private readonly DeltaDbContext _context;
+
+        //private readonly DeltaDbContext _context;
         private readonly IUserRepository _userRepository;
 
         public UserController(IUserRepository userRepository)
@@ -29,7 +32,13 @@ namespace DeltaFestivalAPI.Controllers
         [HttpGet]
         public List<User> GetAll()
         {
-            return _userRepository.GetAll().ToList();
+
+            //Données bouchons
+            Bouchons b = new Bouchons();
+            return b.GetAllBouchonUser();
+
+            /* A décommenter pour mettre en prod */
+            //return _userRepository.GetAll().ToList();
         }
 
         // GET api/values/5
