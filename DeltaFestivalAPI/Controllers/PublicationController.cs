@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DeltaFestivalAPI.Database;
 using DeltaFestivalAPI.IRepository;
 using DeltaFestivalAPI.Models;
+using DeltaFestivalAPI.Transverse;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeltaFestivalAPI.Controllers
@@ -27,7 +28,9 @@ namespace DeltaFestivalAPI.Controllers
         [HttpGet]
         public List<Publication> GetAll()
         {
-           return _publicationRepository.GetAll().ToList();
+            Bouchons b = new Bouchons();
+            return b.GetAllBouchonPublication();
+           //return _publicationRepository.GetAll().ToList();
         }
 
         // GET publication by id

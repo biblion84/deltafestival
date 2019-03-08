@@ -2,7 +2,7 @@
 
 namespace DeltaFestivalAPI.Migrations
 {
-    public partial class test : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

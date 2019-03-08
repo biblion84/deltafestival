@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeltaFestivalAPI.Migrations
 {
     [DbContext(typeof(DeltaDbContext))]
-    [Migration("20190307205928_test")]
-    partial class test
+    [Migration("20190308091409_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,8 +61,9 @@ namespace DeltaFestivalAPI.Migrations
 
             modelBuilder.Entity("DeltaFestivalAPI.Models.Role", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label");
 
@@ -81,15 +82,13 @@ namespace DeltaFestivalAPI.Migrations
 
                     b.Property<int>("RoleId");
 
-                    b.Property<string>("RoleId1");
-
                     b.Property<string>("TicketCode");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MoodId");
 
-                    b.HasIndex("RoleId1");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -111,7 +110,8 @@ namespace DeltaFestivalAPI.Migrations
 
                     b.HasOne("DeltaFestivalAPI.Models.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleId1");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
