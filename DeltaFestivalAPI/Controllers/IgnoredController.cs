@@ -20,11 +20,18 @@ namespace DeltaFestivalAPI.Controllers
             _ignoredRepository = ignoredRepository;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public List<Ignored> GetIgnoredByUser(int id)
+        // GET api/values/5/6
+        [HttpGet("{idCurrentUser}/{idIgnored}")]
+        public Ignored Get(int idCurrentUser, int idIgnored)
         {
-            return _ignoredRepository.FindBy(c => c.IdCurrentUser == id).ToList();
+            return _ignoredRepository.FindBy(c => c.IdCurrentUser == idCurrentUser && c.IdIgnored == idIgnored).FirstOrDefault();
+        }
+
+        // GET api/values/5
+        [HttpGet("{idCurrentUser}")]
+        public List<Ignored> GetIgnoredByUser(int idCurrentUser)
+        {
+            return _ignoredRepository.FindBy(c => c.IdCurrentUser == idCurrentUser).ToList();
         }
 
         // POST api/values
