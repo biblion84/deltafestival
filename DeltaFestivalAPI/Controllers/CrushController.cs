@@ -20,8 +20,15 @@ namespace DeltaFestivalAPI.Controllers
             _crushRepository = crushRepository;
         }
 
+        // GET api/values/5/6
+        [HttpGet("{idCurrentUser}/{idCrush}")]
+        public Crush Get(int idCurrentUser, int idCrush)
+        {
+            return _crushRepository.FindBy(c => c.IdCurrentUser == idCurrentUser && c.IdCrush == idCrush).FirstOrDefault();
+        }
+
         // GET api/values/5
-        [HttpGet("{id}")]
+        [HttpGet("{idCurrentUser}")]
         public List<Crush> GetCrushesByUser(int idCurrentUser)
         {
             return _crushRepository.FindBy(c => c.IdCurrentUser == idCurrentUser).ToList();
@@ -43,6 +50,15 @@ namespace DeltaFestivalAPI.Controllers
         public void CheckIfDoubleCrush()
         {
 
+        }
+
+        // DELETE user by id
+        [HttpDelete("{id}")]
+        public void Delete(int idCurrentUser, int idCrush)
+        {
+            Crush crush = Get(idCurrentUser, idCrush);
+            _crushRepository.Delete(crush);
+            //rajouter new ignored
         }
     }
 }
