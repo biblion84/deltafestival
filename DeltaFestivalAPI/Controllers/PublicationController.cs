@@ -15,7 +15,7 @@ namespace DeltaFestivalAPI.Controllers
     public class PublicationController : ControllerBase
     {
 
-        private readonly DeltaDbContext _context;
+        //private readonly DeltaDbContext _context;
         private readonly IPublicationRepository _publicationRepository;
 
 
@@ -30,7 +30,9 @@ namespace DeltaFestivalAPI.Controllers
         {
             Bouchons b = new Bouchons();
             return b.GetAllBouchonPublication();
-           //return _publicationRepository.GetAll().ToList();
+
+            /* A décommenter pour mettre en prod */
+            //return _publicationRepository.GetAll().ToList();
         }
 
         // GET publication by id

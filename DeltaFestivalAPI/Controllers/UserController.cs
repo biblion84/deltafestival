@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using DeltaFestivalAPI.Database;
 using DeltaFestivalAPI.IRepository;
 using DeltaFestivalAPI.Models;
+using DeltaFestivalAPI.Transverse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeltaFestivalAPI.Controllers
@@ -13,20 +15,43 @@ namespace DeltaFestivalAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-
+        private List<User> listOfPotentialCrushes;
+        private List<int> ignoredOrCrushedPeople;
         private readonly DeltaDbContext _context;
+
+        //private readonly DeltaDbContext _context;
         private readonly IUserRepository _userRepository;
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public string Authenticate(string TicketCode)
+        {
+            var user = _userRepository.Authenticate(TicketCode);
+
+            if (user == null)
+                return "Username or password is incorrect";
+
+            return user.Token.ToString();
+        }
 
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+            listOfPotentialCrushes = new List<User>();
+            ignoredOrCrushedPeople = new List<int>();
         }
 
         // GET all user
         [HttpGet]
         public List<User> GetAll()
         {
-            return _userRepository.GetAll().ToList();
+
+            //Données bouchons
+            Bouchons b = new Bouchons();
+            return b.GetAllBouchonUser();
+
+            /* A décommenter pour mettre en prod */
+            //return _userRepository.GetAll().ToList();
         }
 
         // GET api/values/5
@@ -76,6 +101,7 @@ namespace DeltaFestivalAPI.Controllers
             }
 
             return true;
+
         }
 
         // DELETE user by id
@@ -94,6 +120,27 @@ namespace DeltaFestivalAPI.Controllers
             }
 
             return true;
+
         }
+
+
+        //public User AfficherCrush()
+        //{
+        //    //listOfPotentialCrushes = GetAll().Remove(currentUser); //todo
+
+        //    //récupérér les crush et ignored d'une personne et mettre les int dans une table 
+        //    //todo enlever les personnes présentes dans les tables ignored et crush de la liste à swiper
+
+        //    foreach(int id in ignoredOrCrushedPeople)
+        //    {
+        //        //listOfPotentialCrushes.Remove()
+        //    }
+
+        //    Random rnd = new Random();
+        //    int r = rnd.Next(listOfPotentialCrushes.Count);
+
+        //    return listOfPotentialCrushes[r];
+        //}
+
     }
 }

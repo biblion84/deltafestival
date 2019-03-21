@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DeltaFestivalAPI.Database;
 using DeltaFestivalAPI.IRepository;
 using DeltaFestivalAPI.Models;
+using DeltaFestivalAPI.Transverse;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeltaFestivalAPI.Controllers
@@ -13,7 +14,7 @@ namespace DeltaFestivalAPI.Controllers
     [ApiController]
     public class MoodController : ControllerBase
     {
-         private readonly DeltaDbContext _context;
+        //private readonly DeltaDbContext _context;
         private readonly IMoodRepository _moodRepository;
 
         public MoodController(IMoodRepository moodRepository)
@@ -23,9 +24,15 @@ namespace DeltaFestivalAPI.Controllers
                 
         // GET api/values
         [HttpGet]
-        public ActionResult<List<Mood>> GetAll()
+        public List<Mood> GetAll()
         {
-            return _moodRepository.GetAll().ToList();
+
+            //Données bouchons
+            Bouchons b = new Bouchons();
+            return b.GetAllBouchonMood();
+
+            /* A décommenter pour mettre en prod */
+            //return _moodRepository.GetAll().ToList();
         }
 
         // Get a Mood by Id

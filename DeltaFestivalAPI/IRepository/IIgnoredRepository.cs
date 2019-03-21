@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeltaFestivalAPI.IRepository
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IIgnoredRepository : IGenericRepository<Ignored>
     {
-        User Authenticate(string ticketCode);
     }
 }

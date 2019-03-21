@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeltaFestivalAPI.Migrations
 {
     [DbContext(typeof(DeltaDbContext))]
-    [Migration("20190308091409_init")]
+    [Migration("20190308092652_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
