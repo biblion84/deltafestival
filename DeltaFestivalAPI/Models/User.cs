@@ -14,5 +14,6 @@ namespace DeltaFestivalAPI.Models
         public List<Publication> Publications { get; set; }
         public List<Crush> Crushes { get; set; }
         public List<Ignored> IgnoredPeople { get; set; }
+        public string Token { get; set; }
     }
 }

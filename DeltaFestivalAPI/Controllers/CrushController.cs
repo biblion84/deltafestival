@@ -40,9 +40,9 @@ namespace DeltaFestivalAPI.Controllers
             _crushRepository.Save();
         }
 
-        public void CheckIfDoubleCrush()
-        {
+        //public void CheckIfDoubleCrush()
+        //{
 
-        }
+        //}
     }
 }
