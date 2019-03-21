@@ -42,7 +42,5 @@ namespace DeltaFestivalAPI.Controllers
             return _userRepository.GetRandomUser(excludedUsers);
 
         }
-
-        
-
+    }
 }
