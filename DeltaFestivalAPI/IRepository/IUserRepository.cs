@@ -9,5 +9,6 @@ namespace DeltaFestivalAPI.IRepository
     public interface IUserRepository : IGenericRepository<User>
     {
         User Authenticate(string ticketCode);
+        User GetRandomUser(List<int> excludedUser);        
     }
 }

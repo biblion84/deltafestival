@@ -18,41 +18,23 @@ namespace DeltaFestivalAPI.Controllers
         private readonly IIgnoredRepository _ignoredRepository;
         private readonly IUserRepository _userRepository;
 
-        private List<User> usersList = new List<User>();
-        List<Crush> currentUserCrushList = new List<Crush>();
-        List<Ignored> currentUserIgnoredList = new List<Ignored>();
-
-        public TinderController(ITinderRepository tinderRepository)
+        public TinderController(ITinderRepository tinderRepository, ICrushRepository crushRepository, IIgnoredRepository ignoredRepository, IUserRepository userRepository)
         {
             _tinderRepository = tinderRepository;
+            _crushRepository = crushRepository;
+            _ignoredRepository = ignoredRepository;
+            _userRepository = userRepository;
         }
 
+        /// <summary>
+        /// Retourne le premier utilisateur qui n'a pas encore été match ou ignoré par l'user
+        /// </summary>
         public User GetRandomUser(int idCurrentUser)
         {
-            //récupération de tous les users, crushes du current user, ignored du currend user dans des listes
-            usersList = _userRepository.GetAll().ToList();
-            currentUserCrushList = _crushRepository.FindBy(x => x.IdCurrentUser == idCurrentUser).ToList();
-            currentUserIgnoredList = _ignoredRepository.FindBy(x => x.IdCurrentUser == idCurrentUser).ToList();
+            List<int> excludedUsers = _crushRepository.FindBy(x => x.IdCurrentUser == idCurrentUser).Select(x => x.IdCrush).ToList();
+            excludedUsers.AddRange(_ignoredRepository.FindBy(x => x.IdCurrentUser == idCurrentUser).Select(x => x.IdIgnored).ToList());
 
-            //suppression de l'utilisateur lui-même pour ne pas se matcher
-            usersList.Remove(_userRepository.FindBy(x => x.Id == idCurrentUser).FirstOrDefault());
-
-            //suppression des gens déjà crushed par le current user
-            foreach (Crush crush in currentUserCrushList)
-            {
-                usersList.RemoveAll(x => x.Id == crush.IdCrush);
-            }
-
-            //suppression des gens ignorés par le current user
-            foreach (Ignored ignored in currentUserIgnoredList)
-            {
-                usersList.RemoveAll(x => x.Id == ignored.IdIgnored);
-            }
-
-            Random random = new Random();
-            int index = random.Next(usersList.Count);
-
-            return usersList[index];
+            return _userRepository.GetRandomUser(excludedUsers);
         }
     }
 }

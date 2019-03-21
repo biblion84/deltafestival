@@ -17,11 +17,13 @@ namespace DeltaFestivalAPI.Controllers
 
         //private readonly DeltaDbContext _context;
         private readonly IPublicationRepository _publicationRepository;
+        private readonly UserController _userController;
 
 
-        public PublicationController(IPublicationRepository publicationRepository)
+        public PublicationController(IPublicationRepository publicationRepository, UserController userController)
         {
             _publicationRepository = publicationRepository;
+            _userController = userController;
         }
 
         // GET all list of publication
@@ -42,10 +44,13 @@ namespace DeltaFestivalAPI.Controllers
             return _publicationRepository.FindBy(c => c.Id == id).FirstOrDefault();
         }
 
-        // Inset publication
+        // TODO : Fonctionnalité de like de publication
+
+        // Insert publication
         [HttpPost]
         public bool Post(Publication publication)
         {
+            User user = _userController.Get(publication.UserId);
             try
             {
                 _publicationRepository.Add(publication);

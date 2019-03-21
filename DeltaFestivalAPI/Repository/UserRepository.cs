@@ -59,5 +59,10 @@ namespace DeltaFestivalAPI.Repository
 
             return user;
         }
+
+        public User GetRandomUser(List<int> excludedUser)
+        {
+            return _dbContext.Set<User>().FirstOrDefault(x => !excludedUser.Contains(x.Id));
+        }
     }
 }

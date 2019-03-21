@@ -12,7 +12,7 @@ namespace DeltaFestivalAPI.Repository
     IGenericRepository<T> where T : class, new()
     {
 
-        private readonly DeltaDbContext _dbContext;
+        protected readonly DeltaDbContext _dbContext;
 
 
         public GenericRepository(DeltaDbContext dbContext)
