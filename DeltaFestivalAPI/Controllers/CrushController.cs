@@ -47,10 +47,13 @@ namespace DeltaFestivalAPI.Controllers
             _crushRepository.Save();
         }
 
-        //public void CheckIfDoubleCrush()
-        //{
 
-        //}
+        //check si le current user a été crushed par la personne qui l'intéresse
+        public bool IsDoubleCrush(int idCurrentUser, int idCrush)
+        {
+            Crush crush = Get(idCrush, idCurrentUser);
+            return !(crush == null);
+        }
 
         // DELETE user by id
         [HttpDelete("{id}")]
@@ -58,7 +61,7 @@ namespace DeltaFestivalAPI.Controllers
         {
             Crush crush = Get(idCurrentUser, idCrush);
             _crushRepository.Delete(crush);
-            //rajouter new ignored
+            //rajouter new ignored(idCurrentUser, idCrush)
         }
     }
 }
