@@ -18,12 +18,18 @@ namespace DeltaFestivalAPI.Controllers
         private readonly IIgnoredRepository _ignoredRepository;
         private readonly IUserRepository _userRepository;
 
+<<<<<<< HEAD
         public TinderController(ITinderRepository tinderRepository, ICrushRepository crushRepository, IIgnoredRepository ignoredRepository, IUserRepository userRepository)
         {
             _tinderRepository = tinderRepository;
             _crushRepository = crushRepository;
             _ignoredRepository = ignoredRepository;
             _userRepository = userRepository;
+        }
+
+        public TinderController(ITinderRepository tinderRepository)
+        {
+            _tinderRepository = tinderRepository;
         }
 
         /// <summary>
@@ -35,6 +41,9 @@ namespace DeltaFestivalAPI.Controllers
             excludedUsers.AddRange(_ignoredRepository.FindBy(x => x.IdCurrentUser == idCurrentUser).Select(x => x.IdIgnored).ToList());
 
             return _userRepository.GetRandomUser(excludedUsers);
+
         }
-    }
+
+        
+
 }

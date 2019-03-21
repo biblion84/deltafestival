@@ -47,7 +47,6 @@ namespace DeltaFestivalAPI.Controllers
             _crushRepository.Save();
         }
 
-
         //check si le current user a été crushed par la personne qui l'intéresse
         public bool IsDoubleCrush(int idCurrentUser, int idCrush)
         {
