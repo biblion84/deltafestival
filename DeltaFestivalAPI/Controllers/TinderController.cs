@@ -18,7 +18,6 @@ namespace DeltaFestivalAPI.Controllers
         private readonly IIgnoredRepository _ignoredRepository;
         private readonly IUserRepository _userRepository;
 
-<<<<<<< HEAD
         public TinderController(ITinderRepository tinderRepository, ICrushRepository crushRepository, IIgnoredRepository ignoredRepository, IUserRepository userRepository)
         {
             _tinderRepository = tinderRepository;
