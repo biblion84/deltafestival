@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +25,9 @@ namespace WebApi
             {
                 x.AddEnvironmentVariables();
             })
+            .UseUrls("http://*:5000")
+            .UseContentRoot(Directory.GetCurrentDirectory())
+            .UseIISIntegration()
             .UseStartup<Startup>();
     }
 }

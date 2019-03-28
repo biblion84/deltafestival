@@ -56,7 +56,7 @@ namespace DeltaFestivalAPI.Transverse
         public List<Publication> GetAllBouchonPublication()
         {
             List<Publication> pubs = new List<Publication>();
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Publication p = new Publication();
                 p.Id = i;
@@ -65,6 +65,7 @@ namespace DeltaFestivalAPI.Transverse
                 p.Hashtag = "#LaDeguste " + i;
                 p.Content= "Publication N°" + i;
                 p.UserId = i;
+                p.IsCoupDeCoeur = true;
                 pubs.Add(p);
             }
 
